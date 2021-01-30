@@ -1,3 +1,18 @@
+body {
+    background-color: beige;
+}
+
 #root {
-  color: red;
+ display: none;
+ border: 3px solid green;
+}
+
+h1 {
+    text-align: center;
+    color: rgb(238, 52, 20);
+}
+
+#container {
+    background-color: wheat;
+    border: 3px solid rgb(26, 18, 150);
 }
