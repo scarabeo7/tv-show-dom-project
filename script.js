@@ -1,47 +1,85 @@
 //You can edit ALL of the code here
 const container = document.getElementById("container");
+const searchWrapper = document.getElementById("searchWrapper");
 const searchBar = document.getElementById("searchBar");
 const allEpisodes = getAllEpisodes();
 
 function setup() {
-  //  allEpisodes = getAllEpisodes();
+  searchBar.addEventListener("input", searchFunction);
+  addSelectOption(allEpisodes);
   makePageForEpisodes(allEpisodes);
 }
 
 // function adds "0" to number to give it a double digit //
-    function zeroPadded(episodeCode) {
-      return episodeCode.toString().padStart(2, 0);
-    }
+function zeroPadded(episodeCode) {
+  return episodeCode.toString().padStart(2, 0);
+}
 
-function helperMarkup (episode) {
-  const markUp = `<div><h2>${episode.name} - S${zeroPadded(
-      episode.season
-    )} E${zeroPadded(episode.number)}</h2>
+function helperMarkup(episode) {
+  const markUp = `<h2>${episode.name} - S${zeroPadded(
+    episode.season
+  )} E${zeroPadded(episode.number)}<div></h2>
     <img src= "${episode.image.medium}" alt "">${episode.summary}</div>`;
-    return markUp;
+  return markUp;
 }
 
 function makePageForEpisodes(episodeList) {
-  const innerHTMLArray = [];
+  let innerHTMLArray = "";
   episodeList.forEach((episode) => {
-    innerHTMLArray.push(helperMarkup(episode));
+    innerHTMLArray += helperMarkup(episode);
   });
   container.innerHTML = innerHTMLArray;
 }
 
-function searchFunction(e){
-  let searchString = e.target.value.toLowerCase();
-      let filteredInput = allEpisodes.filter((char) => {
-        return (
-          char.name.toLowerCase().includes(searchString) ||
-          char.summary.toLowerCase().includes(searchString)
-        );
-      });
-      container.innerHTML = "";
-      makePageForEpisodes(filteredInput);
-      
+function episodeCount(filteredInput){
+  if(document.getElementById("p")){
+    document.getElementById("p").remove();
+  }
+  let pEl = document.createElement("p");
+  pEl.id = "p";
+  pEl.innerHTML = `Displaying ${filteredInput.length} of ${allEpisodes.length}`;
+  searchWrapper.appendChild(pEl);
 }
 
-searchBar.addEventListener("input", searchFunction);
+function searchFunction(e) { 
+  let searchString = e.target.value.toLowerCase();
+  let filteredInput = allEpisodes.filter((char) => {
+    return (
+      char.name.toLowerCase().includes(searchString) ||
+      char.summary.toLowerCase().includes(searchString)
+    );
+  });
+  container.innerHTML = "";
+  makePageForEpisodes(filteredInput);
+  episodeCount(filteredInput);
+}
+
+function addSelectOption(episodeList) {
+  let select = document.createElement("select");
+  let seeAllElements = document.createElement("option");
+  seeAllElements.innerHTML = `See all episodes`;
+  select.appendChild(seeAllElements);
+  episodeList.forEach((episode) => {
+    let option = document.createElement("option");
+    option.value = episode.name;
+    option.innerHTML = `${episode.name} - S${zeroPadded(
+      episode.season
+    )} E${zeroPadded(episode.number)}`;
+    select.appendChild(option);
+  });
+  select.addEventListener("change", (e) => {
+    let selectedEpisode;
+    if (e.target.value === "See all episodes") {
+      selectedEpisode = episodeList;
+    } else {
+      selectedEpisode = episodeList.filter((episode) => {
+        return episode.name === e.target.value;
+      });
+    }
+    makePageForEpisodes(selectedEpisode);
+    episodeCount(selectedEpisode);
+  });
+  searchWrapper.appendChild(select);
+}
 
 window.onload = setup;
