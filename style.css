@@ -2,14 +2,13 @@ body {
     background-color: beige;
 }
 
-#root {
- display: none;
- border: 3px solid green;
-}
-
 h1 {
     text-align: center;
     color: rgb(238, 52, 20);
+}
+
+#searchWrapper {
+    margin-bottom: 1.3em;
 }
 
 #container {
