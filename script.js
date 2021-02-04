@@ -4,7 +4,21 @@ const searchWrapper = document.getElementById("searchWrapper");
 const searchBar = document.getElementById("searchBar");
 const allEpisodes = getAllEpisodes();
 
+// function getData (){
+//   let innerHTMLArray = "";
+//   fetch("https://api.tvmaze.com/shows/82/episodes")
+//   .then(response => response.json())
+//   .then(data => {
+//     data.forEach(episode => {
+//       innerHTMLArray += helperMarkup(episode);
+//     });
+//     container.innerHTML = innerHTMLArray;
+//   })
+//   .catch(error => console.log(error));
+// }
+
 function setup() {
+  // getData();
   searchBar.addEventListener("input", searchFunction);
   addSelectOption(allEpisodes);
   makePageForEpisodes(allEpisodes);
