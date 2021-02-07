@@ -2,26 +2,18 @@
 const container = document.getElementById("container");
 const searchWrapper = document.getElementById("searchWrapper");
 const searchBar = document.getElementById("searchBar");
-const allEpisodes = getAllEpisodes();
-
-// function getData (){
-//   let innerHTMLArray = "";
-//   fetch("https://api.tvmaze.com/shows/82/episodes")
-//   .then(response => response.json())
-//   .then(data => {
-//     data.forEach(episode => {
-//       innerHTMLArray += helperMarkup(episode);
-//     });
-//     container.innerHTML = innerHTMLArray;
-//   })
-//   .catch(error => console.log(error));
-// }
+let allEpisodes;
 
 function setup() {
-  // getData();
+ fetch("https://api.tvmaze.com/shows/82/episodes")
+  .then(response => response.json())
+  .then(data => {
+    allEpisodes = data;
   searchBar.addEventListener("input", searchFunction);
   addSelectOption(allEpisodes);
   makePageForEpisodes(allEpisodes);
+  })
+  .catch(error => console.log(error));
 }
 
 // function adds "0" to number to give it a double digit //
@@ -45,8 +37,8 @@ function makePageForEpisodes(episodeList) {
   container.innerHTML = innerHTMLArray;
 }
 
-function episodeCount(filteredInput){
-  if(document.getElementById("p")){
+function episodeCount(filteredInput) {
+  if (document.getElementById("p")) {
     document.getElementById("p").remove();
   }
   let pEl = document.createElement("p");
@@ -55,7 +47,7 @@ function episodeCount(filteredInput){
   searchWrapper.appendChild(pEl);
 }
 
-function searchFunction(e) { 
+function searchFunction(e) {
   let searchString = e.target.value.toLowerCase();
   let filteredInput = allEpisodes.filter((char) => {
     return (
