@@ -2,6 +2,9 @@
 const container = document.getElementById("container");
 const searchWrapper = document.getElementById("searchWrapper");
 const searchBar = document.getElementById("searchBar");
+const showDropDown = document.getElementById("show-dropdown");
+let allShows;
+let createShowList;
 let allEpisodes;
 
 function setup() {
