@@ -22,8 +22,8 @@ jobs:
     - name: Copy files to the test website with the AWS CLI
       run: |
         aws s3 ls
-        aws s3 mb s3://tv-show --region eu-west-1
+    #     aws s3 mb s3://tv-show --region eu-west-1
 
-    - name: Copy files to the tv-show with the AWS CLI
-      run: |
-        aws s3 sync . s3://my-s3-tv-show-bucket
+    # - name: Copy files to the tv-show with the AWS CLI
+    #   run: |
+    #     aws s3 sync . s3://my-s3-tv-show-bucket
