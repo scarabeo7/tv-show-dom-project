@@ -21,7 +21,7 @@ jobs:
 
     - name: Create a bucket on S3
       run: |
-        aws s3api create-bucket --bucket tv-show
+        aws s3api create-bucket --bucket tv-show --eu-west-1
       
     - name: Copy files to the test website with the AWS CLI
       run: |
