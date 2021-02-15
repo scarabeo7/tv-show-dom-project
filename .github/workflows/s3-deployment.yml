@@ -22,6 +22,7 @@ jobs:
     - name: Copy files to the test website with the AWS CLI
       run: |
         aws s3 ls
+        aws s3 create-bucket --bucket my-bucket --region eu-west-1
 
     - name: Copy files to the tv-show with the AWS CLI
       run: |
