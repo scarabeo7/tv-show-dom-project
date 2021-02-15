@@ -19,19 +19,21 @@ function setup() {
   .catch(error => console.log(error));
 }
 
+// function captures required elements for the page
+function helperMarkup(episode) {
+  const markUp = `<div><h2>${episode.name} - S${zeroPadded(
+    episode.season
+  )} E${zeroPadded(episode.number)}</h2>
+    <img src = "${episode.image.medium}" alt = "Episode images">${episode.summary}</div>`;
+  return markUp;
+}
+
 // function adds "0" to number to give it a double digit //
 function zeroPadded(episodeCode) {
   return episodeCode.toString().padStart(2, 0);
 }
 
-function helperMarkup(episode) {
-  const markUp = `<h2>${episode.name} - S${zeroPadded(
-    episode.season
-  )} E${zeroPadded(episode.number)}<div></h2>
-    <img src= "${episode.image.medium}" alt "">${episode.summary}</div>`;
-  return markUp;
-}
-
+// function loads required elements to page
 function makePageForEpisodes(episodeList) {
   let innerHTMLArray = "";
   episodeList.forEach((episode) => {
@@ -41,13 +43,13 @@ function makePageForEpisodes(episodeList) {
 }
 
 function episodeCount(filteredInput) {
+   let paragraphEl = document.createElement("p");
+   paragraphEl.id = "p";
   if (document.getElementById("p")) {
     document.getElementById("p").remove();
   }
-  let pEl = document.createElement("p");
-  pEl.id = "p";
-  pEl.innerHTML = `Displaying ${filteredInput.length} of ${allEpisodes.length}`;
-  searchWrapper.appendChild(pEl);
+  paragraphEl.innerHTML = `Displaying ${filteredInput.length} of ${allEpisodes.length}`;
+  searchWrapper.appendChild(paragraphEl);
 }
 
 function searchFunction(e) {
