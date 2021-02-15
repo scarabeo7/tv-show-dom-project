@@ -19,6 +19,14 @@ jobs:
         aws-secret-access-key: ${{ secrets.TEST_AWS_SECRET_ACCESS_KEY }}
         aws-region: eu-west-1
 
+    - name: Create a bucket on S3
+      run: |
+        aws s3api create-bucket --bucket tv-show
+      
     - name: Copy files to the test website with the AWS CLI
       run: |
         aws s3 ls
+
+    - name: Copy files to the test website with the AWS CLI
+      run: |
+        aws s3 sync . s3://my-s3-tv-show-bucket
