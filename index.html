@@ -12,15 +12,14 @@
   <body>
     <h1>TV Shows Project</h1>
     <div id="searchWrapper">
-      <input type="text" name="searchBar" id="searchBar" placeholder="search">
-    </div>
-
-    <div>
+      
       <label id="selector">
         <select id="show-dropdown" name="listed-shows">
           <option value="text">Select a show…</option>
         </select>
       </label>
+
+      <input type="text" name="searchBar" id="searchBar" placeholder="search">
     </div>
 
     <div id = "container">
@@ -28,14 +27,15 @@
     </div>
 
     <footer>
-
+      <hr>
+     &copy; This project  belongs to CodeYourFuture
     </footer>
+
+    <!-- Loads a provided function called getAllShows() which returns all episodes -->
+    <script src="shows.js"></script>
 
     <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
     <script src="episodes.js"></script>
-
-    <!-- Loads the provided function called getAllShows() which returns all shows -->
-    <script src="shows.js"></script>
 
     <!-- Loads YOUR javascript code -->
     <script src="script.js"></script>
