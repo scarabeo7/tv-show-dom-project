@@ -2,6 +2,11 @@
 const container = document.getElementById("container");
 const searchWrapper = document.getElementById("searchWrapper");
 const searchBar = document.getElementById("searchBar");
+const showDropDown = document.getElementById("show-dropdown");
+let select = document.createElement("select");
+let seeAllElements = document.createElement("option");
+let allShows;
+let showList;
 let allEpisodes;
 
 function setup() {
@@ -28,6 +33,42 @@ function helperMarkup(episode) {
     <img src= "${episode.image.medium}" alt "">${episode.summary}</div>`;
   return markUp;
 }
+
+// sorts the show dropDown in alphabetical order
+   allShows = getAllShows().sort((a, b) => {
+    if(a.name.toLowerCase() > b.name.toLowerCase()) {
+      return 1;
+    }else if(b.name.toLowerCase() > a.name.toLowerCase()) {
+      return -1;
+    }
+    else
+    {
+      return 0;
+    }
+  });
+
+  // Creates show DropDown Options
+  showList = allShows.forEach((show) => {
+    showDropDown.innerHTML += `
+    <option  value= "${show.id}">
+    ${show.name}
+    </option>
+   `;  
+  });
+
+  function episodeSet(selectedShow) {
+  fetch(`https://api.tvmaze.com/shows/${selectedShow}/episodes`)
+    .then((response) => response.json())
+    .then((data) => {
+      allEpisodes = data;
+      searchBar.addEventListener("input", searchFunction);
+      addSelectOption(allEpisodes);
+      makePageForEpisodes(allEpisodes);
+    })
+    .catch((error) => console.log(error));
+}
+
+showDropDown.addEventListener("change", (event) =>  episodeSet(event.target.value));
 
 function makePageForEpisodes(episodeList) {
   let innerHTMLArray = "";
@@ -61,8 +102,7 @@ function searchFunction(e) {
 }
 
 function addSelectOption(episodeList) {
-  let select = document.createElement("select");
-  let seeAllElements = document.createElement("option");
+  select.innerHTML = "";
   seeAllElements.innerHTML = `See all episodes`;
   select.appendChild(seeAllElements);
   episodeList.forEach((episode) => {
