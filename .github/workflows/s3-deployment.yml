@@ -21,5 +21,4 @@ jobs:
 
     - name: Copy files to the test website with the AWS CLI
       run: |
-        aws s3 ls
         aws s3 sync . s3://tv-show-chizim
