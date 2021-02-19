@@ -1,24 +1,26 @@
-//You can edit ALL of the code here
-const container = document.getElementById("container");
-const searchWrapper = document.getElementById("searchWrapper");
-const searchBar = document.getElementById("searchBar");
+const mainElem = document.getElementById("main-container");
 const showDropDown = document.getElementById("show-dropdown");
+const searchWrapper = document.getElementById("search-wrapper");
+const searchBar = document.getElementById("searchBar");
 let select = document.createElement("select");
 let seeAllElements = document.createElement("option");
+let paragraph = document.getElementById("display-text");
 let allShows;
 let showList;
 let allEpisodes;
 
 function setup() {
- fetch("https://api.tvmaze.com/shows/82/episodes")
+  fetch("https://api.tvmaze.com/shows/82/episodes")
   .then(response => response.json())
   .then(data => {
     allEpisodes = data;
   searchBar.addEventListener("input", searchFunction);
   addSelectOption(allEpisodes);
   makePageForEpisodes(allEpisodes);
+  paragraph.innerHTML = `Displaying ${allEpisodes.length} of ${allEpisodes.length} episodes`;
   })
   .catch(error => console.log(error));
+  
 }
 
 // function adds "0" to number to give it a double digit //
@@ -26,11 +28,12 @@ function zeroPadded(episodeCode) {
   return episodeCode.toString().padStart(2, 0);
 }
 
+// markup function that holds page data to display
 function helperMarkup(episode) {
   const markUp = `<h2>${episode.name} - S${zeroPadded(
     episode.season
-  )} E${zeroPadded(episode.number)}<div></h2>
-    <img src= "${episode.image.medium}" alt "">${episode.summary}</div>`;
+  )} E${zeroPadded(episode.number)}</h2>
+    <img src= "${episode.image.medium}" alt "episode image">${episode.summary}`;
   return markUp;
 }
 
@@ -64,30 +67,27 @@ function helperMarkup(episode) {
       searchBar.addEventListener("input", searchFunction);
       addSelectOption(allEpisodes);
       makePageForEpisodes(allEpisodes);
+      paragraph.innerHTML = `Displaying ${allEpisodes.length} of ${allEpisodes.length} episodes`;
     })
     .catch((error) => console.log(error));
 }
 
-showDropDown.addEventListener("change", (event) =>  episodeSet(event.target.value));
+showDropDown.addEventListener("change", (e) =>  episodeSet(e.target.value));
 
+// function that loads page contents
 function makePageForEpisodes(episodeList) {
-  let innerHTMLArray = "";
+  let pageContent = "";
   episodeList.forEach((episode) => {
-    innerHTMLArray += helperMarkup(episode);
+    pageContent += helperMarkup(episode);
   });
-  container.innerHTML = innerHTMLArray;
+  mainElem.innerHTML = pageContent;
 }
 
 function episodeCount(filteredInput) {
-  if (document.getElementById("p")) {
-    document.getElementById("p").remove();
-  }
-  let pEl = document.createElement("p");
-  pEl.id = "p";
-  pEl.innerHTML = `Displaying ${filteredInput.length} of ${allEpisodes.length}`;
-  searchWrapper.appendChild(pEl);
+    paragraph.innerHTML = `Displaying ${filteredInput.length} of ${allEpisodes.length} episodes`;  
 }
 
+// function to search
 function searchFunction(e) {
   let searchString = e.target.value.toLowerCase();
   let filteredInput = allEpisodes.filter((char) => {
@@ -96,11 +96,14 @@ function searchFunction(e) {
       char.summary.toLowerCase().includes(searchString)
     );
   });
-  container.innerHTML = "";
+  mainElem.innerHTML = "";
   makePageForEpisodes(filteredInput);
   episodeCount(filteredInput);
 }
 
+searchBar.addEventListener("input", searchFunction);
+
+// function to select episode from episode dropdown
 function addSelectOption(episodeList) {
   select.innerHTML = "";
   seeAllElements.innerHTML = `See all episodes`;

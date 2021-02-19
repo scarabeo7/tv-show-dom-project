@@ -3,27 +3,37 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TV Show Project | Chizim Chinuru (scarabeo7)</title>
+    <title>TV Show Project | Chizim Chinuru (Scarabeo7)</title>
     <link href="style.css" rel="stylesheet" />
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
   </head>
 
   <body>
-    <h1>TV Shows Project</h1>
-    <div id="searchWrapper">
-      
-      <label id="selector">
-        <select id="show-dropdown" name="listed-shows">
-          <option value="text">Select a show…</option>
-        </select>
-      </label>
+    <h1>DOM TV Shows Project</h1>
+    <div class="container">
+      <div id="search-wrapper">
+        <label id="selector">
+          <select id="show-dropdown" name="listed-shows">
+            <option value="text">Select a show…</option>
+          </select>
+        </label>
 
-      <input type="text" name="searchBar" id="searchBar" placeholder="search">
+        <input
+          id="searchBar"
+          type="text"
+          name="searchBar"
+          placeholder="Search"
+        />
+        <p id="display-text"></p>
+      </div>
     </div>
 
-    <div id = "container">
-      
+    <div id="main-container" class="container">
+
     </div>
 
     <footer>
