@@ -10,7 +10,7 @@ let showList;
 let allEpisodes;
 
 function setup() {
-  fetch("https://api.tvmaze.com/shows/82/episodes")
+  fetch("https://api.tvmaze.com/shows/167/episodes")
   .then(response => response.json())
   .then(data => {
     allEpisodes = data;
@@ -38,28 +38,29 @@ function helperMarkup(episode) {
 }
 
 // sorts the show dropDown in alphabetical order
-   allShows = getAllShows().sort((a, b) => {
-    if(a.name.toLowerCase() > b.name.toLowerCase()) {
-      return 1;
-    }else if(b.name.toLowerCase() > a.name.toLowerCase()) {
-      return -1;
-    }
-    else
-    {
-      return 0;
-    }
-  });
+allShows = getAllShows().sort((a, b) => {
+  if(a.name.toLowerCase() > b.name.toLowerCase()) {
+    return 1;
+  }else if(b.name.toLowerCase() > a.name.toLowerCase()) {
+    return -1;
+  }
+  else
+  {
+    return 0;
+  }
+});
 
   // Creates show DropDown Options
-  showList = allShows.forEach((show) => {
-    showDropDown.innerHTML += `
-    <option  value= "${show.id}">
-    ${show.name}
-    </option>
-   `;  
-  });
+showList = allShows.forEach((show) => {
+  showDropDown.innerHTML += `
+  <option  value= "${show.id}">
+  ${show.name}
+  </option>
+  `;
+});
 
-  function episodeSet(selectedShow) {
+// function to fetch shows from API and displays episodes
+function episodeSet(selectedShow) {
   fetch(`https://api.tvmaze.com/shows/${selectedShow}/episodes`)
     .then((response) => response.json())
     .then((data) => {
