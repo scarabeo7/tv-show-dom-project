@@ -30,10 +30,10 @@ function zeroPadded(episodeCode) {
 
 // markup function that holds page data to display
 function helperMarkup(episode) {
-  const markUp = `<h2>${episode.name} - S${zeroPadded(
+  const markUp = `<div><h2>${episode.name} - S${zeroPadded(
     episode.season
   )} E${zeroPadded(episode.number)}</h2>
-    <img src= "${episode.image.medium}" alt "episode image">${episode.summary}`;
+    <img src= "${episode.image.medium}" alt "episode image">${episode.summary}</div>`;
   return markUp;
 }
 
