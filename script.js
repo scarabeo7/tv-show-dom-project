@@ -6,8 +6,6 @@ let showTitle = document.getElementById("show-title");
 let select = document.createElement("select");
 let seeAllElements = document.createElement("option");
 let paragraph = document.getElementById("display-text");
-let allShows;
-let showList;
 let allEpisodes;
 
 function setup() {
@@ -64,7 +62,7 @@ allShows.forEach((show) => {
 function episodeSet(selectedShow) {
   let title = showDropDown.options[showDropDown.selectedIndex].text;
   if (title === "Select a show…") {
-    showList.innerHTML = "";
+    showTitle.innerHTML = "";
   } else {
     showTitle.innerHTML = title;
   }
