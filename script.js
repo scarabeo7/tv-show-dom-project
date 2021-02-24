@@ -2,6 +2,7 @@ const mainElem = document.getElementById("main-container");
 const showDropDown = document.getElementById("show-dropdown");
 const searchWrapper = document.getElementById("search-wrapper");
 const searchBar = document.getElementById("searchBar");
+let showTitle = document.getElementById("show-title");
 let select = document.createElement("select");
 let seeAllElements = document.createElement("option");
 let paragraph = document.getElementById("display-text");
@@ -10,17 +11,17 @@ let showList;
 let allEpisodes;
 
 function setup() {
+  showTitle.innerHTML = "24";
   fetch("https://api.tvmaze.com/shows/167/episodes")
-  .then(response => response.json())
-  .then(data => {
-    allEpisodes = data;
-  searchBar.addEventListener("input", searchFunction);
-  addSelectOption(allEpisodes);
-  makePageForEpisodes(allEpisodes);
-  paragraph.innerHTML = `Displaying ${allEpisodes.length} of ${allEpisodes.length} episodes`;
-  })
-  .catch(error => console.log(error));
-  
+    .then((response) => response.json())
+    .then((data) => {
+      allEpisodes = data;
+      searchBar.addEventListener("input", searchFunction);
+      addSelectOption(allEpisodes);
+      makePageForEpisodes(allEpisodes);
+      paragraph.innerHTML = `Displaying ${allEpisodes.length} of ${allEpisodes.length} episodes`;
+    })
+    .catch((error) => console.log(error));
 }
 
 // function adds "0" to number to give it a double digit //
@@ -33,25 +34,25 @@ function helperMarkup(episode) {
   const markUp = `<div><h2>${episode.name} - S${zeroPadded(
     episode.season
   )} E${zeroPadded(episode.number)}</h2>
-    <img src= "${episode.image.medium}" alt "episode image">${episode.summary}</div>`;
+    <img src= "${episode.image.medium}" alt "episode image">${
+    episode.summary
+  }</div>`;
   return markUp;
 }
 
 // sorts the show dropDown in alphabetical order
 allShows = getAllShows().sort((a, b) => {
-  if(a.name.toLowerCase() > b.name.toLowerCase()) {
+  if (a.name.toLowerCase() > b.name.toLowerCase()) {
     return 1;
-  }else if(b.name.toLowerCase() > a.name.toLowerCase()) {
+  } else if (b.name.toLowerCase() > a.name.toLowerCase()) {
     return -1;
-  }
-  else
-  {
+  } else {
     return 0;
   }
 });
 
-  // Creates show DropDown Options
-showList = allShows.forEach((show) => {
+// Creates show DropDown Options
+allShows.forEach((show) => {
   showDropDown.innerHTML += `
   <option  value= "${show.id}">
   ${show.name}
@@ -61,6 +62,12 @@ showList = allShows.forEach((show) => {
 
 // function to fetch shows from API and displays episodes
 function episodeSet(selectedShow) {
+  let title = showDropDown.options[showDropDown.selectedIndex].text;
+  if (title === "Select a show…") {
+    showList.innerHTML = "";
+  } else {
+    showTitle.innerHTML = title;
+  }
   fetch(`https://api.tvmaze.com/shows/${selectedShow}/episodes`)
     .then((response) => response.json())
     .then((data) => {
@@ -73,7 +80,7 @@ function episodeSet(selectedShow) {
     .catch((error) => console.log(error));
 }
 
-showDropDown.addEventListener("change", (e) =>  episodeSet(e.target.value));
+showDropDown.addEventListener("change", (e) => episodeSet(e.target.value));
 
 // function that loads page contents
 function makePageForEpisodes(episodeList) {
@@ -85,7 +92,7 @@ function makePageForEpisodes(episodeList) {
 }
 
 function episodeCount(filteredInput) {
-    paragraph.innerHTML = `Displaying ${filteredInput.length} of ${allEpisodes.length} episodes`;  
+  paragraph.innerHTML = `Displaying ${filteredInput.length} of ${allEpisodes.length} episodes`;
 }
 
 // function to search
