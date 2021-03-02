@@ -39,7 +39,7 @@ img {
     border: 3px solid grey;
     border-radius: 6px;
     padding: 1.2rem;
-    margin: 1rem;
+    margin: 1rem auto;
     text-align: center;
     background-color: wheat;
 }
@@ -59,4 +59,18 @@ footer hr {
     border: 0;
     border-top: 1px solid #758da5;
     margin: 1rem 0;
+}
+
+@media only screen and (max-width: 767px) {
+    #search-wrapper {
+        flex-direction: column;
+        margin: 1rem;
+        justify-content: space-around;
+    }
+    #searchBar{
+        margin: 1.5rem;
+    }
+    #main-container > div {
+        width: 60%;
+    }
 }

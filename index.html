@@ -18,7 +18,7 @@
       <div id="search-wrapper">
         <label id="selector">
           <select id="show-dropdown" name="listed-shows">
-            <option value="text">Select a show…</option>
+            <option value="all">All Shows</option>
           </select>
         </label>
 
@@ -28,6 +28,8 @@
           name="searchBar"
           placeholder="Search"
         />
+
+        <input id="searchShow" type="text" name="searchBar" placeholder="Search For a Show" />
         <p id="display-text"></p>
       </div>
     </div>
@@ -47,7 +49,7 @@
     <script src="shows.js"></script>
 
     <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
-    <script src="episodes.js"></script>
+    <!-- <script src="episodes.js"></script> -->
 
     <!-- Loads YOUR javascript code -->
     <script src="script.js"></script>
