@@ -16,7 +16,7 @@ h2 {
 }
 
 img {
-  width: 100%;
+  width: auto;
 }
 
 #search-wrapper {
@@ -41,13 +41,17 @@ img {
   border-radius: 6px;
   padding: 1.2rem;
   margin: 1rem auto;
-  text-align: center;
+  text-align: justify;
   background-color: wheat;
 }
 
 #display-text {
   font-size: 1.3em;
   font-weight: bold;
+}
+
+#ratings {
+  text-align: left;
 }
 
 footer {
@@ -68,7 +72,8 @@ footer hr {
     margin: 1rem;
     justify-content: space-around;
   }
-  #searchBar {
+  #searchBar,
+  #searchShow {
     margin: 1.5rem;
   }
   #main-container > div {

@@ -3,20 +3,21 @@ const showDropDown = document.getElementById("show-dropdown");
 const searchWrapper = document.getElementById("search-wrapper");
 const searchBar = document.getElementById("searchBar");
 const showSearchBar = document.getElementById("searchShow");
-let select = document.createElement("select");
-let seeAllElements = document.createElement("option");
-let paragraph = document.getElementById("display-text");
+const select = document.createElement("select");
+const seeAllElements = document.createElement("option");
+const paragraph = document.getElementById("display-text");
 let allShows = getAllShows();
 let allEpisodes;
 
+// function to display all shows on when page loads
 function displayShows(allShows) {
   showsInformation(allShows);
   document.querySelectorAll(".show-container").forEach((show) => {
     let showId = show.getAttribute("data-id");
     show.addEventListener("click", () => {
       showDropDown.value = showId;
+      showSearchBar.style.display = "none";
       episodeSet(showId);
-      addSelectOption(allEpisodes);
     });
   });
   paragraph.innerHTML = `Displaying ${allShows.length} of ${allShows.length} shows`;
@@ -37,14 +38,32 @@ function setup() {
   });
 }
 
+// sorts the show dropDown in alphabetical order
+allShows.sort((a, b) => {
+  if (a.name.toLowerCase() > b.name.toLowerCase()) {
+    return 1;
+  } else if (b.name.toLowerCase() > a.name.toLowerCase()) {
+    return -1;
+  } else {
+    return 0;
+  }
+});
+
 // markup function that holds shows data to display (level 500)
 function showListMarkup(show) {
   const imageMarkUp = show.image
     ? `<img src = "${show.image.medium}" alt "Show image">`
     : "";
-  const showMarkUp = `<div class = "show-container" data-id = "${show.id}"><h2>${show.name}</h2>
-  ${imageMarkUp} ${show.summary}<p class = "ratings">Rated: ${show.rating.average} | | 
-    Genres: ${show.genres} | | Status: ${show.status} | | Runtime: ${show.runtime}</p></div>`;
+  const showMarkUp = `<div class = "show-container" data-id = "${
+    show.id
+  }"><h2>${show.name}</h2>
+  ${imageMarkUp} ${show.summary}<p id = "ratings"><strong>Rated:</strong> ${
+    show.rating.average
+  } <br><strong>Genres:</strong> ${show.genres.join(
+    " | "
+  )} <br><strong>Status:</strong> ${
+    show.status
+  } <br><strong>Runtime:</strong> ${show.runtime}</p></div>`;
   return showMarkUp;
 }
 
@@ -62,7 +81,7 @@ function zeroPadded(episodeCode) {
   return episodeCode.toString().padStart(2, 0);
 }
 
-// markup function that holds page data to display
+// markup function that holds each shows episodes data to display
 function helperMarkup(episode) {
   const imageMarkUp = episode.image
     ? `<img src = "${episode.image.medium}" alt "Show image">`
@@ -73,17 +92,6 @@ function helperMarkup(episode) {
     ${imageMarkUp} ${episode.summary !== null ? episode.summary : ""}</div>`;
   return markUp;
 }
-
-// sorts the show dropDown in alphabetical order
-allShows.sort((a, b) => {
-  if (a.name.toLowerCase() > b.name.toLowerCase()) {
-    return 1;
-  } else if (b.name.toLowerCase() > a.name.toLowerCase()) {
-    return -1;
-  } else {
-    return 0;
-  }
-});
 
 // function to fetch shows from API and displays episodes
 function episodeSet(selectedShow) {
@@ -103,7 +111,7 @@ showDropDown.addEventListener("change", (e) => {
   if (e.target.value === "all") {
     displayShows(allShows);
     searchBar.style.display = "none";
-    paragraph.innerHTML = "";
+    paragraph.innerHTML = `Displaying ${allShows.length} of ${allShows.length} shows`;
     select.style.display = "none";
     showSearchBar.style.display = "block";
   } else {
@@ -113,9 +121,7 @@ showDropDown.addEventListener("change", (e) => {
   }
 });
 
-// showDropDown.addEventListener("change", (e) =>  episodeSet(e.target.value));
-
-// function that loads page contents
+// function to load episode contents
 function makePageForEpisodes(episodeList) {
   let pageContent = "";
   episodeList.forEach((episode) => {
@@ -132,7 +138,8 @@ function episodeCount(filteredInput) {
 function showCount(filteredInput) {
   paragraph.innerHTML = `Displaying ${filteredInput.length} of ${allShows.length} shows`;
 }
-// function to search
+
+// function to search through episode list
 function searchFunction(e) {
   let searchString = e.target.value.toLowerCase();
   let filteredInput = allEpisodes.filter((char) => {
@@ -146,6 +153,7 @@ function searchFunction(e) {
   episodeCount(filteredInput);
 }
 
+// function to search through show list
 function searchShow(e) {
   let searchString = e.target.value.toLowerCase();
   let filteredInput = allShows.filter((char) => {
@@ -158,6 +166,7 @@ function searchShow(e) {
   mainElem.innerHTML = "";
   displayShows(filteredInput);
   showCount(filteredInput);
+  addSelectOption(filteredInput);
 }
 
 searchBar.style.display = "none";

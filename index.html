@@ -1,48 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TV Show Project | Chizim Chinuru (Scarabeo7)</title>
+    <link href="style.css" rel="stylesheet" />
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TV Show Project | Chizim Chinuru (Scarabeo7)</title>
-  <link href="style.css" rel="stylesheet" />
-  <link rel="icon" href="/favicon.ico" type="image/x-icon" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
-</head>
+  <body>
+    <h1>DOM TV Shows Project</h1>
+    <div class="container">
+      <div id="search-wrapper">
+        <label id="selector">
+          <select id="show-dropdown" name="listed-shows">
+            <option value="all">All Shows</option>
+          </select>
+        </label>
 
-<body>
-  <h1>DOM TV Shows Project</h1>
-  <div class="container">
-    <div id="search-wrapper">
-      <label id="selector">
-        <select id="show-dropdown" name="listed-shows">
-          <option value="all">All Shows</option>
-        </select>
-      </label>
+        <input
+          id="searchBar"
+          type="text"
+          name="searchBar"
+          placeholder="Search"
+        />
 
-      <input id="searchBar" type="text" name="searchBar" placeholder="Search" />
-
-      <input id="searchShow" type="text" name="searchBar" placeholder="Search For a Show" />
-      <p id="display-text"></p>
+        <input
+          id="searchShow"
+          type="text"
+          name="searchBar"
+          placeholder="Search For a Show"
+        />
+        <p id="display-text"></p>
+      </div>
     </div>
-  </div>
 
-  <div id="main-container" class="container">
+    <div id="main-container" class="container"></div>
 
-  </div>
+    <footer>
+      <hr />
+      <p>
+        &copy; The data for this project has (originally) come from
+        <a href="https://www.tvmaze.com/api#licensing" target="_blank"
+          >TVMaze.com</a
+        >
+      </p>
+    </footer>
 
-  <footer>
-    <hr>
-    <p> &copy; The data for this project has (originally) come from
-      <a href="https://www.tvmaze.com/api#licensing" target="_blank">TVMaze.com</a>
-    </p>
-  </footer>
+    <!-- Loads a provided function called getAllShows() which returns all episodes -->
+    <script src="shows.js"></script>
 
-  <!-- Loads a provided function called getAllShows() which returns all episodes -->
-  <script src="shows.js"></script>
-
-  <!-- Loads YOUR javascript code -->
-  <script src="script.js"></script>
-</body>
-
+    <!-- Loads YOUR javascript code -->
+    <script src="script.js"></script>
+  </body>
 </html>
