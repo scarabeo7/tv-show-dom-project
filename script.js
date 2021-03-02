@@ -2,11 +2,10 @@ const mainElem = document.getElementById("main-container");
 const showDropDown = document.getElementById("show-dropdown");
 const searchWrapper = document.getElementById("search-wrapper");
 const searchBar = document.getElementById("searchBar");
-const showSearchBar = document.getElementById("searchShow");
+let showTitle = document.getElementById("show-title");
 let select = document.createElement("select");
 let seeAllElements = document.createElement("option");
 let paragraph = document.getElementById("display-text");
-let allShows = getAllShows();
 let allEpisodes;
 
 function displayShows(allShows) {
@@ -25,34 +24,17 @@ function displayShows(allShows) {
 }
 
 function setup() {
-  displayShows(allShows);
-
-  // Creates show DropDown Options
-  showList = allShows.forEach((show) => {
-    showDropDown.innerHTML += `
-  <option  value= "${show.id}">
-  ${show.name}
-  </option>
-  `;
-  });
-}
-
-// markup function that holds shows data to display (level 500)
-function showListMarkup(show) {
-  const imageMarkUp = (show.image) ?  `<img src = "${show.image.medium}" alt "Show image">`: "";
-  const showMarkUp = `<div class = "show-container" data-id = "${show.id}"><h2>${show.name}</h2>
-  ${imageMarkUp} ${show.summary}<p class = "ratings">Rated: ${show.rating.average} | | 
-    Genres: ${show.genres} | | Status: ${show.status} | | Runtime: ${show.runtime}</p></div>`;
-  return showMarkUp;
-}
-
-// function that loads shows contents (level 500)
-function showsInformation(showList) {
-  let showContent = "";
-  showList.forEach((show) => {
-    showContent += showListMarkup(show);
-  });
-  mainElem.innerHTML = showContent;
+  showTitle.innerHTML = "24";
+  fetch("https://api.tvmaze.com/shows/167/episodes")
+    .then((response) => response.json())
+    .then((data) => {
+      allEpisodes = data;
+      searchBar.addEventListener("input", searchFunction);
+      addSelectOption(allEpisodes);
+      makePageForEpisodes(allEpisodes);
+      paragraph.innerHTML = `Displaying ${allEpisodes.length} of ${allEpisodes.length} episodes`;
+    })
+    .catch((error) => console.log(error));
 }
 
 // function adds "0" to number to give it a double digit //
@@ -62,31 +44,43 @@ function zeroPadded(episodeCode) {
 
 // markup function that holds page data to display
 function helperMarkup(episode) {
- const imageMarkUp = episode.image
-   ? `<img src = "${episode.image.medium}" alt "Show image">`
-   : "";
- const markUp = `<div><h2>${episode.name} - S${zeroPadded(
-   episode.season
- )} E${zeroPadded(episode.number)}</h2>
-    ${imageMarkUp} ${episode.summary !== null ? episode.summary : ""}</div>`;
- return markUp;
+  const markUp = `<div><h2>${episode.name} - S${zeroPadded(
+    episode.season
+  )} E${zeroPadded(episode.number)}</h2>
+    <img src= "${episode.image.medium}" alt "episode image">${
+    episode.summary
+  }</div>`;
+  return markUp;
 }
 
 // sorts the show dropDown in alphabetical order
-allShows.sort((a, b) => {
-  if(a.name.toLowerCase() > b.name.toLowerCase()) {
+allShows = getAllShows().sort((a, b) => {
+  if (a.name.toLowerCase() > b.name.toLowerCase()) {
     return 1;
-  }else if(b.name.toLowerCase() > a.name.toLowerCase()) {
+  } else if (b.name.toLowerCase() > a.name.toLowerCase()) {
     return -1;
-  }
-  else
-  {
+  } else {
     return 0;
   }
 });
 
+// Creates show DropDown Options
+allShows.forEach((show) => {
+  showDropDown.innerHTML += `
+  <option  value= "${show.id}">
+  ${show.name}
+  </option>
+  `;
+});
 
-  function episodeSet(selectedShow) {
+// function to fetch shows from API and displays episodes
+function episodeSet(selectedShow) {
+  let title = showDropDown.options[showDropDown.selectedIndex].text;
+  if (title === "Select a show…") {
+    showTitle.innerHTML = "";
+  } else {
+    showTitle.innerHTML = title;
+  }
   fetch(`https://api.tvmaze.com/shows/${selectedShow}/episodes`)
     .then((response) => response.json())
     .then((data) => {
@@ -99,21 +93,7 @@ allShows.sort((a, b) => {
     .catch((error) => console.log(error));
 }
 
-showDropDown.addEventListener("change", (e) => {
-  if (e.target.value === "all") {
-    displayShows(allShows);
-    searchBar.style.display = "none";
-    paragraph.innerHTML = "";
-    select.style.display = "none";
-    showSearchBar.style.display = "block";
-  } else {
-    episodeSet(e.target.value);
-    select.style.display = "block";
-    showSearchBar.style.display = "none";
-  }
-});
-
-// showDropDown.addEventListener("change", (e) =>  episodeSet(e.target.value));
+showDropDown.addEventListener("change", (e) => episodeSet(e.target.value));
 
 // function that loads page contents
 function makePageForEpisodes(episodeList) {
@@ -126,7 +106,7 @@ function makePageForEpisodes(episodeList) {
 }
 
 function episodeCount(filteredInput) {
-    paragraph.innerHTML = `Displaying ${filteredInput.length} of ${allEpisodes.length} episodes`;  
+  paragraph.innerHTML = `Displaying ${filteredInput.length} of ${allEpisodes.length} episodes`;
 }
 
 function showCount(filteredInput){
