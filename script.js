@@ -8,6 +8,21 @@ let seeAllElements = document.createElement("option");
 let paragraph = document.getElementById("display-text");
 let allEpisodes;
 
+function displayShows(allShows) {
+  showsInformation(allShows);
+  document.querySelectorAll(".show-container").forEach((show) => {
+    let showId = show.getAttribute("data-id");
+    show.addEventListener("click", () => {
+      showDropDown.value = showId;
+      episodeSet(showId);
+      addSelectOption(allEpisodes);
+    });    
+  });
+  paragraph.innerHTML = `Displaying ${allShows.length} of ${allShows.length} shows`;
+
+ showSearchBar.addEventListener("input", searchShow);
+}
+
 function setup() {
   showTitle.innerHTML = "24";
   fetch("https://api.tvmaze.com/shows/167/episodes")
@@ -87,12 +102,16 @@ function makePageForEpisodes(episodeList) {
     pageContent += helperMarkup(episode);
   });
   mainElem.innerHTML = pageContent;
+  searchBar.style.display = "block";
 }
 
 function episodeCount(filteredInput) {
   paragraph.innerHTML = `Displaying ${filteredInput.length} of ${allEpisodes.length} episodes`;
 }
 
+function showCount(filteredInput){
+  paragraph.innerHTML = `Displaying ${filteredInput.length} of ${allShows.length} shows`;
+}
 // function to search
 function searchFunction(e) {
   let searchString = e.target.value.toLowerCase();
@@ -107,6 +126,21 @@ function searchFunction(e) {
   episodeCount(filteredInput);
 }
 
+function searchShow(e) {
+  let searchString = e.target.value.toLowerCase();
+  let filteredInput = allShows.filter((char) => {
+    return (
+      char.name.toLowerCase().includes(searchString) ||
+      char.genres.join(" ").toLowerCase().includes(searchString)||
+      char.summary.toLowerCase().includes(searchString)
+    );
+  });
+  mainElem.innerHTML = "";
+  displayShows(filteredInput);
+  showCount(filteredInput);
+}
+
+searchBar.style.display = "none"
 searchBar.addEventListener("input", searchFunction);
 
 // function to select episode from episode dropdown
