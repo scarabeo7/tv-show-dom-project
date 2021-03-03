@@ -52,6 +52,8 @@ img {
 
 #ratings {
   text-align: left;
+  border: 3px groove rgb(44, 42, 42);
+  border-radius: 6px;
 }
 
 footer {
