@@ -17,6 +17,7 @@ function displayShows(allShows) {
     show.addEventListener("click", () => {
       showDropDown.value = showId;
       showSearchBar.style.display = "none";
+      select.style.display = "block"
       episodeSet(showId);
     });
   });
@@ -166,7 +167,6 @@ function searchShow(e) {
   mainElem.innerHTML = "";
   displayShows(filteredInput);
   showCount(filteredInput);
-  addSelectOption(filteredInput);
 }
 
 searchBar.style.display = "none";
