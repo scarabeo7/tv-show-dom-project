@@ -17,7 +17,7 @@ function displayShows(allShows) {
     show.addEventListener("click", () => {
       showDropDown.value = showId;
       showSearchBar.style.display = "none";
-      select.style.display = "block"
+      select.style.display = "block";
       episodeSet(showId);
     });
   });
@@ -58,13 +58,15 @@ function showListMarkup(show) {
   const showMarkUp = `<div class = "show-container" data-id = "${
     show.id
   }"><h2>${show.name}</h2>
-  ${imageMarkUp} ${show.summary}<p id = "ratings"><strong>Rated:</strong> ${
+  ${imageMarkUp} ${
+    show.summary
+  }<div class = "ratings"><p><strong>Rated:</strong> ${
     show.rating.average
-  } <br><strong>Genres:</strong> ${show.genres.join(
+  }</p><p><strong>Genres:</strong> ${show.genres.join(
     " | "
-  )} <br><strong>Status:</strong> ${
+  )}</p><p><strong>Status:</strong> ${
     show.status
-  } <br><strong>Runtime:</strong> ${show.runtime}</p></div>`;
+  }</p><p><strong>Runtime:</strong> ${show.runtime}</p></div></div>`;
   return showMarkUp;
 }
 

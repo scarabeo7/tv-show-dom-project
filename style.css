@@ -50,10 +50,10 @@ img {
   font-weight: bold;
 }
 
-#ratings {
-  text-align: left;
-  border: 3px groove rgb(44, 42, 42);
+.ratings {
+  border: 0.5rem outset rgb(29, 21, 23);  
   border-radius: 6px;
+  padding: 0.5rem; 
 }
 
 footer {
