@@ -75,8 +75,9 @@ footer hr {
     justify-content: space-around;
   }
   #searchBar,
-  #searchShow {
-    margin: 1.5rem;
+  #searchShow,
+  #button {
+    margin: 1rem;
   }
   #main-container > div {
     width: 60%;

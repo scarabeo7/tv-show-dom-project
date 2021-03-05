@@ -6,6 +6,7 @@ const showSearchBar = document.getElementById("searchShow");
 const select = document.createElement("select");
 const seeAllElements = document.createElement("option");
 const paragraph = document.getElementById("display-text");
+const homeButton = document.getElementById("button");
 let allShows = getAllShows();
 let allEpisodes;
 
@@ -18,6 +19,7 @@ function displayShows(allShows) {
       showDropDown.value = showId;
       showSearchBar.style.display = "none";
       select.style.display = "block";
+      homeButton.style.display = "block";
       episodeSet(showId);
     });
   });
@@ -38,6 +40,17 @@ function setup() {
   `;
   });
 }
+
+// Return to all shows button event
+homeButton.style.display = "none";
+homeButton.addEventListener("click", ()=>{
+  displayShows(allShows);
+  select.style.display = "none";
+  homeButton.style.display = "none";
+  searchBar.style.display = "none";
+  showSearchBar.style.display = "block";
+
+});
 
 // sorts the show dropDown in alphabetical order
 allShows.sort((a, b) => {
@@ -117,10 +130,12 @@ showDropDown.addEventListener("change", (e) => {
     paragraph.innerHTML = `Displaying ${allShows.length} of ${allShows.length} shows`;
     select.style.display = "none";
     showSearchBar.style.display = "block";
+    homeButton.style.display = "none";
   } else {
     episodeSet(e.target.value);
     select.style.display = "block";
     showSearchBar.style.display = "none";
+    homeButton.style.display = "block";
   }
 });
 
