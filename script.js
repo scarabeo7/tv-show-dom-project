@@ -8,7 +8,6 @@ const seeAllElements = document.createElement("option");
 const paragraph = document.getElementById("display-text");
 const homeButton = document.getElementById("button");
 let allShows = getAllShows();
-let allEpisodes;
 
 // function to display all shows on when page loads
 function displayShows(allShows) {
@@ -71,9 +70,9 @@ function showListMarkup(show) {
   const showMarkUp = `<div class = "show-container" data-id = "${
     show.id
   }"><h2>${show.name}</h2>
-  ${imageMarkUp} ${
+  ${imageMarkUp} <div class = "show-summary">${
     show.summary
-  }<div class = "ratings"><p><strong>Rated:</strong> ${
+  }</div><div class = "ratings"><p><strong>Rated:</strong> ${
     show.rating.average
   }</p><p><strong>Genres:</strong> ${show.genres.join(
     " | "
@@ -102,7 +101,7 @@ function helperMarkup(episode) {
   const imageMarkUp = episode.image
     ? `<img src = "${episode.image.medium}" alt "Show image">`
     : "";
-  const markUp = `<div><h2>${episode.name} - S${zeroPadded(
+  const markUp = `<div class = "episode-container"><h2>${episode.name} - S${zeroPadded(
     episode.season
   )} E${zeroPadded(episode.number)}</h2>
     ${imageMarkUp} ${episode.summary !== null ? episode.summary : ""}</div>`;
