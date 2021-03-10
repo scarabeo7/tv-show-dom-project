@@ -1,3 +1,151 @@
-#root {
-  color: red;
+*
+body {
+  background-color: #0072b5;
+  margin: 0;
+}
+
+h1 {
+  text-align: center;
+  text-shadow: 2px 2px 8px #240202;
+  color: white;
+  margin-top: 5.5rem;
+}
+
+h2 {
+  border: 1px solid;
+  padding: 10px;
+  box-shadow: inset rgb(148, 123, 123) 5px 10px 20px;
+  text-align: center;
+  border-radius: 6px;
+}
+
+img {
+  width: auto;
+}
+
+#search-wrapper {
+  position: fixed;
+  top: 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  background-color: darkblue;
+  color: white;
+  margin: auto;
+}
+
+button {
+  cursor: pointer;
+  background-color: wheat;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: 0.5s;
+}
+
+button:hover {
+  background-color: rgb(165, 8, 16);
+  color: white;
+}
+
+input {
+  font-size: 1.2rem;
+}
+
+select {
+  font-size: 1.2rem;
+}
+
+#main-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.episode-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 25%;
+  border: 3px solid grey;
+  border-radius: 6px;
+  padding: 1.2rem;
+  margin: 1rem auto;
+  text-align: justify;
+  background-color: #043958;
+  color: white;
+}
+
+.show-container {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-around;
+  margin-bottom: 1.5rem;
+  margin: 1rem auto;
+  border: 3px solid gray;
+  border-radius: 6px;
+  background-color: #043958;
+  color: white;
+  cursor: pointer;
+}
+.show-container h2 {
+  width: 100%;
+}
+
+.show-container img {
+  width: 15%;
+  margin-bottom: 1rem;
+}
+
+.show-summary {
+  width: 57%;
+  text-align: justify;
+}
+
+#display-text {
+  font-size: 1.3em;
+  font-weight: bold;
+}
+
+.ratings {
+  border-radius: 6px;
+  padding: 0.5rem;
+  width: 20%;
+  background-color: rgb(60, 60, 194);
+}
+
+footer {
+  background-color: #0072b5;
+  overflow: auto;
+  padding-bottom: 0.5rem;
+  text-align: center;
+  color: white;
+  font-size: 1.2rem;
+}
+footer hr {
+  border: 0;
+  border-top: 1px solid #758da5;
+  margin: 1rem 0;
+}
+
+@media only screen and (max-width: 767px) {
+  #search-wrapper {
+    flex-direction: column;
+    justify-content: center;
+  }
+  #searchBar,
+  #searchShow,
+  #button {
+    margin: 1rem;
+  }
+  .episode-container {
+    width: 60%;
+  }
+  .show-container{
+    width: 60%;
+  }
+  h1 {
+    margin-top: 15rem;
+  }
 }
