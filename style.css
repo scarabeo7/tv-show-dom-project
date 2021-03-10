@@ -1,5 +1,5 @@
 body {
-  background-color: #0072B5;
+  background-color: #0072b5;
   margin: 0;
 }
 
@@ -41,18 +41,17 @@ button {
   transition: 0.5s;
 }
 
-button:hover{
+button:hover {
   background-color: rgb(165, 8, 16);
   color: white;
 }
 
-input{
+input {
   font-size: 1.2rem;
 }
 
 select {
   font-size: 1.2rem;
-  /* width: 50%; */
 }
 
 #main-container {
@@ -88,7 +87,7 @@ select {
   cursor: pointer;
 }
 .show-container h2 {
-  width:100%;
+  width: 100%;
 }
 
 .show-container img {
@@ -107,7 +106,6 @@ select {
 }
 
 .ratings {
-  /* border: 0.5rem outset rgb(29, 21, 23); */
   border-radius: 6px;
   padding: 0.5rem;
   width: 20%;
@@ -115,10 +113,12 @@ select {
 }
 
 footer {
-  background-color: beige;
+  background-color: #0072b5;
   overflow: auto;
   padding-bottom: 0.5rem;
   text-align: center;
+  color: white;
+  font-size: 1.2rem;
 }
 footer hr {
   border: 0;
