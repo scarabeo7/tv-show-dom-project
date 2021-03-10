@@ -42,13 +42,12 @@ function setup() {
 
 // Return to all shows button event
 homeButton.style.display = "none";
-homeButton.addEventListener("click", ()=>{
+homeButton.addEventListener("click", () => {
   displayShows(allShows);
   select.style.display = "none";
   homeButton.style.display = "none";
   searchBar.style.display = "none";
   showSearchBar.style.display = "block";
-
 });
 
 // sorts the show dropDown in alphabetical order
@@ -101,9 +100,9 @@ function helperMarkup(episode) {
   const imageMarkUp = episode.image
     ? `<img src = "${episode.image.medium}" alt "Show image">`
     : "";
-  const markUp = `<div class = "episode-container"><h2>${episode.name} - S${zeroPadded(
-    episode.season
-  )} E${zeroPadded(episode.number)}</h2>
+  const markUp = `<div class = "episode-container"><h2>${
+    episode.name
+  } - S${zeroPadded(episode.season)} E${zeroPadded(episode.number)}</h2>
     ${imageMarkUp} ${episode.summary !== null ? episode.summary : ""}</div>`;
   return markUp;
 }
